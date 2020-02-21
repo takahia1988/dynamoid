@@ -47,6 +47,7 @@ module Dynamoid
     option :application_timezone, default: :utc # available values - :utc, :local, time zone name like "Hawaii"
     option :dynamodb_timezone, default: :utc # available values - :utc, :local, time zone name like "Hawaii"
     option :store_datetime_as_string, default: false # store Time fields in ISO 8601 string format
+    option :digits_of_fractional_seconds, default: 0 # the number of digits for ISO 8601 fractional seconds
     option :store_date_as_string, default: false # store Date fields in ISO 8601 string format
     option :store_boolean_as_native, default: true
     option :backoff, default: nil # callable object to handle exceeding of table throughput limit

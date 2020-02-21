@@ -219,10 +219,14 @@ module Dynamoid
                             else
                               options[:store_as_string]
                             end
-
         if use_string_format
+          digits_of_fractional_seconds = if options[:digits_of_fractional_seconds].nil?
+                                           Dynamoid.config.digits_of_fractional_seconds
+                                         else
+                                           options[:digits_of_fractional_seconds]
+                                         end
           value_in_time_zone = Dynamoid::DynamodbTimeZone.in_time_zone(value)
-          value_in_time_zone.iso8601
+          value_in_time_zone.iso8601(digits_of_fractional_seconds)
         else
           unless value.respond_to?(:to_i) && value.respond_to?(:nsec)
             value = value.to_time
@@ -248,7 +252,12 @@ module Dynamoid
                             end
 
         if use_string_format
-          value.to_date.iso8601
+          digits_of_fractional_seconds = if options[:digits_of_fractional_seconds].nil?
+                                           Dynamoid.config.digits_of_fractional_seconds
+                                         else
+                                           options[:digits_of_fractional_seconds]
+                                         end
+          value.to_date.iso8601(digits_of_fractional_seconds)
         else
           (value.to_date - Dynamoid::Persistence::UNIX_EPOCH_DATE).to_i
         end

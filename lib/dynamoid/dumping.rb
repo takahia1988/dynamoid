@@ -252,12 +252,7 @@ module Dynamoid
                             end
 
         if use_string_format
-          digits_of_fractional_seconds = if options[:digits_of_fractional_seconds].nil?
-                                           Dynamoid.config.digits_of_fractional_seconds
-                                         else
-                                           options[:digits_of_fractional_seconds]
-                                         end
-          value.to_date.iso8601(digits_of_fractional_seconds)
+          value.to_date.iso8601
         else
           (value.to_date - Dynamoid::Persistence::UNIX_EPOCH_DATE).to_i
         end
